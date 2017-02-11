@@ -1,0 +1,20 @@
+version: '2'
+
+services:
+  db:
+      image: sameersbn/postgresql:9.6-2
+      environment:
+          DB_USER: dbuser
+          DB_PASS: dbuserpass
+          DB_NAME: appdb
+      volumes:
+          - "./data:/var/lib/postgresql"
+
+  nginx:
+      image: nginx
+      ports:
+          - 80:80
+      links:
+          - db
+      volumes:
+          - "./web:/var/www/html"
